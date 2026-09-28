@@ -30,4 +30,8 @@ public class InventoryDao {
         }
         return false;
     }
+
+    public Optional<Inventory> findById(Long productId) {
+        return repo.findById(productId);
+    }
 }

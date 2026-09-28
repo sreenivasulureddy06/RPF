@@ -26,4 +26,9 @@ public class InventoryController {
     public ResponseEntity<InventoryResponse> deleteProduct(@PathVariable @PathParam("productId") Long productId) {
         return service.deleteProduct(productId);
     }
+
+    @PostMapping("/add/cart/{productId}")
+    public ResponseEntity<InventoryResponse> addToCart(@PathVariable @PathParam("productId") Long productId) {
+        return service.addToCart(productId);
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 public class InventoryService {
 
     private final InventoryDao dao;
+
+    private final InventoryKafkaProducer kafkaProducer;
 
     public ResponseEntity<InventoryResponse> findAll() {
         List<Inventory> data = dao.findAll();
@@ -38,5 +41,15 @@ public class InventoryService {
         response.setStatus(ResponseCodes.FAILURE);
         response.setError(new HttpError("1000", "Error in product deleteion"));
         return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(response);
+    }
+
+    public ResponseEntity<InventoryResponse> addToCart(Long productId) {
+        InventoryResponse response = new InventoryResponse();
+        Optional<Inventory> inventory = dao.findById(productId);
+        if(inventory.isPresent()) {
+            InventoryBean bean = inventory.get().populateData();
+            kafkaProducer.sendInventory(bean);
+        }
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(response);
     }
 }
