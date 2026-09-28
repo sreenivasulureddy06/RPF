@@ -23,6 +23,7 @@ public class InventoryApplication {
 			Inventory inventory = new Inventory();
 			inventory.setName("Prod "+i);
 			inventory.setPrice(10000d+i);
+			inventory.setStatus("AV");
 			dao.save(inventory);
 		}
 	}
