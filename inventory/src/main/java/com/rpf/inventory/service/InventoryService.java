@@ -48,6 +48,7 @@ public class InventoryService {
         Optional<Inventory> inventory = dao.findById(productId);
         if(inventory.isPresent()) {
             InventoryBean bean = inventory.get().populateData();
+            bean.setUserId(1L);
             kafkaProducer.sendInventory(bean);
         }
         return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(response);

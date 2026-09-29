@@ -7,22 +7,22 @@ inventory:
 spring:
   application:
     name: inventory
-    datasource:
-      url: jdbc:h2:mem:inventorydb
-      username: sa
-      password: sa
-      driver-class-name: org.h2.Driver
-    jpa:
+  datasource:
+    url: jdbc:h2:mem:inventorydb
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
       hibernate:
-        ddl-auto: create-drop
-      show-sql: true
-      properties:
-        hibernate:
-          format_sql: true
+        format_sql: true
   h2:
     console:
-      enabled=true
-      path=/h2-console
+      enabled: true
+      path: /h2-console
   kafka:
     bootstrap-servers: localhost:9092
     producer:

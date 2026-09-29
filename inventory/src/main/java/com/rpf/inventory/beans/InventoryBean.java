@@ -12,4 +12,6 @@ public class InventoryBean {
     private Double price;
 
     private String status;
+
+    private Long userId;
 }
