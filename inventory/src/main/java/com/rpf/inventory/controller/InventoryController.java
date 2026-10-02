@@ -12,10 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/inventory")
-@AllArgsConstructor
 public class InventoryController {
 
     private final InventoryService service;
+
+    public InventoryController(InventoryService service) {
+        this.service = service;
+    }
 
     @GetMapping("/find/all")
     public ResponseEntity<InventoryResponse> findAll() {

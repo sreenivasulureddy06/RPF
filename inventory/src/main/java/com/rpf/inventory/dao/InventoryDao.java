@@ -9,10 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@AllArgsConstructor
 public class InventoryDao {
 
     private final InventoryRepo repo;
+
+    public InventoryDao(InventoryRepo repo) {
+        this.repo = repo;
+    }
 
     public List<Inventory> findAll() {
         return repo.findAll();

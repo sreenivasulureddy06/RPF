@@ -17,12 +17,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class InventoryService {
 
     private final InventoryDao dao;
 
     private final InventoryKafkaProducer kafkaProducer;
+
+    public InventoryService(InventoryDao dao, InventoryKafkaProducer kafkaProducer) {
+        this.dao = dao;
+        this.kafkaProducer = kafkaProducer;
+    }
+
 
     public ResponseEntity<InventoryResponse> findAll() {
         List<Inventory> data = dao.findAll();
